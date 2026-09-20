@@ -1,14 +1,10 @@
 package lw01.prelab;
 
-public abstract class PrintJob implements Chargeable {
+public abstract class PrintJob {
     private String id;
     private int pages;
 
-    // Pastikan constructor ini ada
-    protected PrintJob(String id, int pages) {
-        if (pages <= 0) {
-            throw new IllegalArgumentException("Pages must be greater than zero.");
-        }
+    public PrintJob(String id, int pages) {
         this.id = id;
         this.pages = pages;
     }
@@ -21,22 +17,9 @@ public abstract class PrintJob implements Chargeable {
         return pages;
     }
 
-    @Override
-    public abstract int calculateCharge();
-
-    public int calculateCharge(int copies) {
-        if (copies <= 0) {
-            throw new IllegalArgumentException("Copies must be greater than zero.");
-        }
-        return copies * calculateCharge();
-    }
-
-    // Pastikan method label() ini ada
-    public String label() {
-        return "Print";
-    }
+    public abstract int calculateCost();
 
     public String summary() {
-        return id + " | " + label() + " | " + calculateCharge();
+        return "ID: " + id + " | Pages: " + pages + " | Cost: Rp" + calculateCost();
     }
 }

@@ -1,27 +1,19 @@
 package lw01.prelab;
 
 public class ColourPrint extends PrintJob {
+    private static final int COST_PER_PAGE = 1000; 
 
     public ColourPrint(String id, int pages) {
         super(id, pages);
     }
 
     @Override
-    public int calculateCharge() {
-        int pages = getPages();
-        int baseCharge = 0;
-
-        if (pages <= 10) {
-            baseCharge = pages * 1500;
-        } else {
-            baseCharge = (10 * 1500) + ((pages - 10) * 1000);
-        }
-
-        return baseCharge + 2000;
+    public int calculateCost() {
+        return getPages() * COST_PER_PAGE;
     }
 
     @Override
-    public String label() {
-        return "Colour";
+    public String summary() {
+        return "[COLOUR] " + super.summary();
     }
 }
