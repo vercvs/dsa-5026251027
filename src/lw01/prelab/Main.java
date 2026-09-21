@@ -7,21 +7,25 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) throws Exception {
-        Scanner read = new Scanner(Main.class.getResourceAsStream("jobs.txt"));
+        Scanner scanner = new Scanner(
+                Main.class.getResourceAsStream("jobs.txt")
+        );
+
         List<PrintJob> jobs = new ArrayList<>();
 
-        while (read.hasNext()) {
-            String type = read.next();
-            String id = read.next();
-            int pages = read.nextInt();
+        while (scanner.hasNext()) {
+            String type = scanner.next();
+            String id = scanner.next();
+            int pages = scanner.nextInt();
 
-            if (type.equals("COLOUR")) {
-                jobs.add(new ColourPrint(id, pages));
-            } else if (type.equals("MONO")) {
+            if (type.equals("MONO")) {
                 jobs.add(new MonoPrint(id, pages));
+            } else if (type.equals("COLOUR")) {
+                jobs.add(new ColourPrint(id, pages));
             }
         }
-        read.close();
+
+        scanner.close();
 
         for (PrintJob job : jobs) {
             System.out.println(job.summary());

@@ -1,10 +1,14 @@
 package lw01.prelab;
 
-public abstract class PrintJob {
+public abstract class PrintJob implements Chargeable {
     private String id;
     private int pages;
 
-    public PrintJob(String id, int pages) {
+    protected PrintJob(String id, int pages) {
+        if (pages <= 0) {
+            throw new IllegalArgumentException();
+        }
+
         this.id = id;
         this.pages = pages;
     }
@@ -17,9 +21,22 @@ public abstract class PrintJob {
         return pages;
     }
 
-    public abstract int calculateCost();
+    @Override
+    public abstract int calculateCharge();
+
+    public int calculateCharge(int copies) {
+        if (copies <= 0) {
+            throw new IllegalArgumentException();
+        }
+
+        return copies * calculateCharge();
+    }
+
+    public String label() {
+        return "Print";
+    }
 
     public String summary() {
-        return "ID: " + id + " | Pages: " + pages + " | Cost: Rp" + calculateCost();
+        return id + " | " + label() + " | " + calculateCharge();
     }
 }
